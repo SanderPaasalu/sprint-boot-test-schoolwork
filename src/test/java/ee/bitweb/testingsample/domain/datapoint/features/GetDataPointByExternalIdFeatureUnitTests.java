@@ -14,31 +14,28 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
-
 @ExtendWith(MockitoExtension.class)
-public class GetDataPointByIdFeatureUnitTests {
+public class GetDataPointByExternalIdFeatureUnitTests {
 
     @InjectMocks
-    GetDataPointByIdFeature getDataPointByIdFeature;
+    GetDataPointByExternalIdFeature getDataPointByExternalIdFeature;
 
     @Mock
     private DataPointRepository repository;
 
     @Test
-    void onSuccessShouldReturnOneDatapointById() throws Exception {
+    void onSuccessShouldReturnOneDatapointByExternalId() throws Exception {
         DataPoint point = DataPointHelper.create(1L);
 
         repository.save(point);
 
-       doReturn(Optional.of(point)).when(repository).findOne(DataPointSpecification.id(any()));
-       getDataPointByIdFeature.get(1L);
+        doReturn(Optional.of(point)).when(repository).findOne(DataPointSpecification.id(any()));
+        getDataPointByExternalIdFeature.get("external-id-1");
 
         assertAll(
                 () -> Assertions.assertEquals("external-id-1", point.getExternalId()),
@@ -55,7 +52,8 @@ public class GetDataPointByIdFeatureUnitTests {
         repository.save(point);
 
         assertThrows(EntityNotFoundException.class, () -> {
-            getDataPointByIdFeature.get(1L);
+            getDataPointByExternalIdFeature.get("external-id-1");
         });
+
     }
 }
