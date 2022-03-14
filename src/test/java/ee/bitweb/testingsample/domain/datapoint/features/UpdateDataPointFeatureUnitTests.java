@@ -44,6 +44,7 @@ public class UpdateDataPointFeatureUnitTests {
         doReturn(point).when(persistDataPointFeature).save(point);
         updateDataPointFeature.update(point, dataPointModel);
 
+
         assertAll(
                 () -> Assertions.assertEquals("external-id-1", point.getExternalId()),
                 () -> Assertions.assertEquals("value-1", point.getValue()),

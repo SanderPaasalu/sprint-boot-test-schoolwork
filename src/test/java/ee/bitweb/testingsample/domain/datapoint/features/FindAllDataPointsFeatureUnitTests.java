@@ -32,9 +32,8 @@ public class FindAllDataPointsFeatureUnitTests {
         DataPoint point1 = DataPointHelper.create(1L);
         DataPoint point2 = DataPointHelper.create(2L);
 
-        //when(repository.findAll()).thenReturn(List.of(point1, point2));
+        when(repository.findAll()).thenReturn(List.of(point1, point2));
 
-        verify(findAllDataPointsFeature, times(1)).find();
         List<DataPoint> dataPoints = findAllDataPointsFeature.find();
 
         assertEquals(2L, dataPoints.size());
