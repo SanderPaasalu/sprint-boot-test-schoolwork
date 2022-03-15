@@ -47,10 +47,6 @@ public class GetDataPointByExternalIdFeatureUnitTests {
 
     @Test
     void onInvalidIdShouldThrowEntityNotFoundException() throws Exception {
-        DataPoint point = DataPointHelper.create(1L);
-
-        repository.save(point);
-
         assertThrows(EntityNotFoundException.class, () -> {
             getDataPointByExternalIdFeature.get("external-id-1");
         });
